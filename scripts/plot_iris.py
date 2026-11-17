@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Scatter sepal length vs width by species; save under ~/experiments."""
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "matplotlib>=3.8",
+#   "pandas>=2.0",
+# ]
+# ///
+"""Run with ``uv run`` to save an Iris sepal scatter under ~/experiments."""
 
 from __future__ import annotations
 

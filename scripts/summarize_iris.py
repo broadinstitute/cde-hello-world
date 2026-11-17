@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Print Iris shape, species counts, and simple numeric summaries."""
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "pandas>=2.0",
+# ]
+# ///
+"""Run with ``uv run`` to print Iris shape, counts, and numeric summaries."""
 
 from __future__ import annotations
 

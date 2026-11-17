@@ -12,6 +12,12 @@ CDE Workbench. It shows how a launchable CDE combines three pieces:
 
 The `bucket/` directory holds files intended for the GCS bucket (`iris.csv` and
 `README.md`). The scripts default to the mount path above; pass `--csv` when running
-locally against `bucket/iris.csv`.
+locally against `bucket/iris.csv`. Run them through `uv` so their inline dependencies
+are installed automatically:
+
+```console
+uv run scripts/summarize_iris.py --csv bucket/iris.csv
+uv run scripts/plot_iris.py --csv bucket/iris.csv
+```
 
 This pack is a **platform demo**, not an authoring template for building your own CDE.
