@@ -1,0 +1,85 @@
+schema_version: 1
+id: hello-world
+name: Hello World CDE
+tagline: Classic Iris dataset + a few scripts — ask the assistant to explore the data
+description: >-
+  A minimal public demo of CDE Workbench: a GitHub repo with runnable scripts,
+  a small read-only Iris dataset in GCS, and a cloud coding assistant with
+  suggested prompts. No life-science background required.
+domain: Data science
+owner_email: chelsea@broadinstitute.org
+image: hello-world-cover.svg
+hue: 175
+repository:
+  url: https://github.com/broadinstitute/cde-hello-world
+  manifest_path: cde.yaml
+  default_ref: main
+datasets:
+  - id: iris-gcs
+    uri: gs://cde-hello-world
+    mount_path: /home/user/mnt/cde-hello-world
+    read_only: true
+    description: >-
+      Classic Iris flower measurements (150 rows) for a universal data-science
+      hello world.
+vm:
+  image: wkvmzi77krww8cmeg9ac:faae3b6a-1cf6-462c-8cba-bc9f705fe556
+  cpu: 2
+  memory_gb: 8
+  disk_gb: 50
+skills:
+  - name: explore-iris
+    description: >-
+      Use when the user asks to explore, summarize, plot, or run scripts against
+      the Iris dataset in this environment.
+    content: |-
+      # Explore Iris
+
+      1. Data is read-only at `~/mnt/cde-hello-world/iris.csv`
+         (columns: sepal_length, sepal_width, petal_length, petal_width, species).
+      2. Code lives in `~/workspace/cde-hello-world` under `scripts/`.
+      3. Prefer running `scripts/summarize_iris.py` and `scripts/plot_iris.py`
+         before inventing new analysis.
+      4. Never modify files under `~/mnt`. Save every figure, table, and image
+         under `~/experiments`.
+prompt:
+  system: |-
+    The code is in `~/workspace/cde-hello-world`.
+    The read-only data is in `~/mnt/cde-hello-world`; never modify it.
+    Save every generated figure, table, and image to `~/experiments`.
+  suggested:
+    - id: summarize-iris
+      label: Summarize Iris
+      prompt: Summarize the Iris dataset (rows, columns, and species counts).
+    - id: run-summary-script
+      label: Run summary script
+      prompt: Run scripts/summarize_iris.py and explain the output.
+    - id: plot-sepals
+      label: Plot sepals
+      prompt: >-
+        Plot sepal length vs sepal width by species using scripts/plot_iris.py
+        and save the figure under ~/experiments.
+resources:
+  - id: gcs
+    kind: gcs
+    title: Iris dataset
+    description: >-
+      Classic Iris flower measurements. Read-only.
+    href: https://console.cloud.google.com/storage/browser/cde-hello-world?project=broad-dsp-eng-tools
+    location: gs://cde-hello-world
+    facts:
+      - 150 rows
+      - 4 numeric features
+      - 3 species
+    catalogLines:
+      - README.md
+      - iris.csv
+  - id: github
+    kind: github
+    title: Hello World CDE (GitHub)
+    description: Source scripts for summarizing and plotting Iris.
+    href: https://github.com/broadinstitute/cde-hello-world
+  - id: skills
+    kind: skill
+    title: Explore Iris
+    description: How to use the mounted CSV and runnable scripts safely.
